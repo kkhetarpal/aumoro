@@ -8,8 +8,8 @@ Arduino Mega/Due: Obstacle Avoidance
                   Testing Motors
 Vision: Object Tracking
         Human Detection
-        Human Trackingj
+        Human Tracking
 ============
 
-1. objtracking.cpp :: object tracking using a usb webcam by default. 
-2. 
+1. objtracking.cpp :: object tracking using a laptop webcam by default. 
+2. objtracking_usb.cpp :: object tracking using a usb webcam only. 
