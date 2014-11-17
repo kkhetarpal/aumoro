@@ -1,0 +1,6 @@
+This version of the vision tracking algorithm has improvised over the
+last version in a way that takes care of the tracking in a more robust
+manner. 
+
+The algorithm takes into account : 
+the previous frames trakcer window in prevtrackWindow
