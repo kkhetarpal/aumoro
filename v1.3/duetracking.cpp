@@ -124,6 +124,8 @@ int main( int argc, const char** argv )
     int camNum = parser.get<int>("1");
 
     cap.open(1);
+    //cap.open(0);
+
 
     if( !cap.isOpened() )
     {

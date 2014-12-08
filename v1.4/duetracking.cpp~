@@ -1,4 +1,4 @@
-  #include <unistd.h>
+#include <unistd.h>
 #include "serial_talk.h"
 #include "stdlib.h"
 #include "stdio.h"
@@ -126,7 +126,6 @@ int main( int argc, const char** argv )
     cap.open(1);
     //cap.open(0);
 
-
     if( !cap.isOpened() )
     {
         help();
@@ -138,7 +137,7 @@ int main( int argc, const char** argv )
 
     namedWindow( "Histogram", 0 );
     namedWindow( "CamShift Demo", 0 );
-    setMouseCallback( "CamShift Demo", onMouse, 0 );
+    //setMouseCallback( "CamShift Demo", onMouse, 0 );
     createTrackbar( "Vmin", "CamShift Demo", &vmin, 256, 0 );
     createTrackbar( "Vmax", "CamShift Demo", &vmax, 256, 0 );
     createTrackbar( "Smin", "CamShift Demo", &smin, 256, 0 );
@@ -147,6 +146,18 @@ int main( int argc, const char** argv )
     bool paused = false;
 	
 
+    Mat image1;
+    //Read an image
+    //cout << "Image Cols : " << image1.cols << "Image Rows : " << image.rows << endl;
+
+    image1 = imread("/home/amazon/cvprojects/task1/v1.4/img2.jpg", CV_LOAD_IMAGE_COLOR);   // Read the file 
+    //cout << "Image Cols : " << image1.cols << "Image Rows : " << image.rows << endl;
+
+    
+    selection = Rect(0, 0, image1.cols, image1.rows);
+    //cout << "X: " << selection.x << " Y: " << selection.y << endl;
+
+    trackObject = -1;
     
     for(int index = 0;;index++)
     {
@@ -224,8 +235,8 @@ int main( int argc, const char** argv )
              double currentarea = trackWindow.area();
 
 
-             bool right = false, left = false, forward = false, backward = false;
-
+             bool right = false, left = false, forward = false, backward = false, stop = false;
+            
             if(c2x >= (image.cols/2) + 90 )
             {
                 //turn right
@@ -255,6 +266,11 @@ int main( int argc, const char** argv )
 		//cout << "backward: " << currentarea / (image.rows * image.cols) << endl;
 
             }
+
+             if(currentarea < 100)
+	     {
+                  stop = true;
+	     }
 
 	    //prevtrackWindow = trackWindow;
 
@@ -296,12 +312,13 @@ int main( int argc, const char** argv )
 
 
 
-
-
-
-
-
-            if (right)
+	   if (stop)
+	   {
+	        command = "s";
+                cout << "Command: " << command << endl;
+                send_via_port(&command, "string", 0);                     //sending string command
+	   }
+           else    if (right)
             {
                 command = "r";
                 cout << "Command: " << command << endl;
