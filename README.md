@@ -11,5 +11,12 @@ Vision: Object Tracking
         Human Tracking
 ============
 
-1. objtracking.cpp :: object tracking using a laptop webcam by default. 
-2. objtracking_usb.cpp :: object tracking using a usb webcam only. 
+v
+v1.3
+This version of tracking performs hue based tracking :: the source code can be run using the mouse selection of color to be tracked. The tracking talks serially to Arduino Due and sends character commands : f/b/r/l/s. 
+
+============
+v1.4
+This version of tracking performs hue based tracking :: the source code has been made automatic :: pre feed an image and store it with the name img2 in the given location. The selection is based on the hue extracted from that image. 
+
+============
